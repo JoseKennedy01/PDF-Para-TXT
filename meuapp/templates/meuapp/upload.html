@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PDFtoTXT — Conversor Profissional</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0A0A0F;
+      --surface: #111118;
+      --card: #16161F;
+      --border: rgba(255,255,255,0.07);
+      --border-hover: rgba(255,255,255,0.15);
+      --accent: #7C6FFF;
+      --accent2: #FF6B6B;
+      --accent3: #00D9A3;
+      --text: #F0EFF8;
+      --muted: #7A7990;
+      --muted2: #4A4960;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── BACKGROUND ORBS ── */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb-1 {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(124,111,255,0.18) 0%, transparent 70%);
+      top: -200px; left: -200px;
+      animation: float1 12s ease-in-out infinite;
+    }
+    .orb-2 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(0,217,163,0.12) 0%, transparent 70%);
+      bottom: -100px; right: -100px;
+      animation: float2 16s ease-in-out infinite;
+    }
+    .orb-3 {
+      width: 350px; height: 350px;
+      background: radial-gradient(circle, rgba(255,107,107,0.1) 0%, transparent 70%);
+      top: 50%; right: 20%;
+      animation: float3 20s ease-in-out infinite;
+    }
+    @keyframes float1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(60px,40px)} }
+    @keyframes float2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-50px,-30px)} }
+    @keyframes float3 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(30px,60px)} }
+
+    /* ── GRID TEXTURE ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── LAYOUT ── */
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(10,10,15,0.7);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.03em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo span { color: var(--accent); }
+    .logo-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent3);
+      display: inline-block;
+      animation: pulse-dot 2.5s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%,100%{transform:scale(1);opacity:1}
+      50%{transform:scale(1.4);opacity:0.7}
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-badge {
+      background: rgba(124,111,255,0.15);
+      color: var(--accent);
+      border: 1px solid rgba(124,111,255,0.3);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 160px 0 100px;
+      text-align: center;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(124,111,255,0.1);
+      border: 1px solid rgba(124,111,255,0.25);
+      color: var(--accent);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-tag-dot {
+      width: 6px; height: 6px;
+      background: var(--accent3);
+      border-radius: 50%;
+    }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+    .hero h1 .line2 {
+      display: block;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 50%, var(--accent3) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 1.5rem auto 0;
+      line-height: 1.7;
+      font-weight: 300;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    /* ── STATS ROW ── */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-top: 3.5rem;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+    .stat-item {
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 2px;
+      letter-spacing: 0.04em;
+    }
+    .stat-divider {
+      width: 1px;
+      background: var(--border);
+    }
+
+    /* ── MAIN CARD ── */
+    .upload-section {
+      padding: 0 0 100px;
+      animation: fadeUp 0.6s 0.35s ease both;
+    }
+    .card-main {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-main::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0.5;
+    }
+
+    /* ── DROP ZONE ── */
+    .drop-zone {
+      border: 2px dashed var(--border-hover);
+      border-radius: 16px;
+      padding: 4rem 2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      background: rgba(255,255,255,0.02);
+    }
+    .drop-zone:hover, .drop-zone.dragover {
+      border-color: var(--accent);
+      background: rgba(124,111,255,0.05);
+    }
+    .drop-zone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+    .drop-icon {
+      width: 72px; height: 72px;
+      background: linear-gradient(135deg, rgba(124,111,255,0.2), rgba(0,217,163,0.1));
+      border: 1px solid rgba(124,111,255,0.3);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 2rem;
+      transition: transform 0.3s;
+    }
+    .drop-zone:hover .drop-icon { transform: translateY(-4px); }
+    .drop-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .drop-sub {
+      color: var(--muted);
+      font-size: 0.875rem;
+    }
+    .drop-sub span {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* ── FILE PREVIEW ── */
+    .file-preview {
+      display: none;
+      align-items: center;
+      gap: 16px;
+      margin-top: 1.5rem;
+      background: rgba(124,111,255,0.08);
+      border: 1px solid rgba(124,111,255,0.2);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+    }
+    .file-preview.show { display: flex; }
+    .file-icon-wrap {
+      width: 44px; height: 44px;
+      background: rgba(124,111,255,0.15);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .file-name {
+      font-weight: 500;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .file-size {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .file-remove {
+      margin-left: auto;
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 1.1rem;
+      padding: 4px;
+      border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+      flex-shrink: 0;
+    }
+    .file-remove:hover { color: var(--accent2); background: rgba(255,107,107,0.1); }
+
+    /* ── OPTIONS ROW ── */
+    .options-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .opt-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: relative;
+    }
+    .opt-card:hover { border-color: var(--border-hover); }
+    .opt-card input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+    }
+    .opt-card.selected {
+      border-color: rgba(124,111,255,0.4);
+      background: rgba(124,111,255,0.07);
+    }
+    .opt-radio {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 2px solid var(--border-hover);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    .opt-card.selected .opt-radio {
+      border-color: var(--accent);
+      background: var(--accent);
+    }
+    .opt-card.selected .opt-radio::after {
+      content: '';
+      width: 6px; height: 6px;
+      background: white;
+      border-radius: 50%;
+    }
+    .opt-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    .opt-desc {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    /* ── SUBMIT ── */
+    .btn-convert {
+      width: 100%;
+      margin-top: 1.75rem;
+      padding: 1rem;
+      background: linear-gradient(135deg, var(--accent) 0%, #9B8FFF 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-convert::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .btn-convert:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(124,111,255,0.4); }
+    .btn-convert:hover::before { opacity: 1; }
+    .btn-convert:active { transform: translateY(0); }
+    .btn-convert:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* ── LOADING STATE ── */
+    .btn-loading {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── FEATURES ── */
+    .features {
+      padding: 80px 0;
+    }
+    .section-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      text-align: center;
+      letter-spacing: -0.02em;
+      margin-bottom: 3.5rem;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+    .feat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .feat-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(124,111,255,0.05) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .feat-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-4px);
+    }
+    .feat-card:hover::after { opacity: 1; }
+    .feat-icon {
+      font-size: 2rem;
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+    .feat-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+    .feat-desc {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      position: relative;
+    }
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: calc(16.66% + 28px);
+      right: calc(16.66% + 28px);
+      height: 1px;
+      background: linear-gradient(90deg, var(--accent), var(--accent3));
+      opacity: 0.4;
+    }
+    .step {
+      text-align: center;
+    }
+    .step-num {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #9B8FFF);
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+      position: relative;
+      z-index: 1;
+    }
+    .step-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .step-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .footer-copy {
+      font-size: 0.825rem;
+      color: var(--muted);
+    }
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .footer-links a {
+      font-size: 0.825rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .features-grid, .steps { grid-template-columns: 1fr; }
+      .steps::before { display: none; }
+      .options-row { grid-template-columns: 1fr; }
+      .stats { gap: 1.5rem; }
+      .nav-links { display: none; }
+      .card-main { padding: 1.75rem; }
+      .hero { padding: 120px 0 60px; }
+      .footer-inner { flex-direction: column; text-align: center; }
+    }
+
+    /* CSRF token - tag Django */
+    form { display: contents; }
+  </style>
+</head>
+<body>
+
+  <!-- Background orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-inner">
+      <div class="logo">
+        <div class="logo-dot"></div>
+        PDF<span>txt</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#conversor">Conversor</a></li>
+        <li><a href="#recursos">Recursos</a></li>
+        <li><a href="#como-funciona">Como funciona</a></li>
+      </ul>
+      <div class="nav-badge">✦ Gratuito</div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrapper">
+      <div class="hero-tag">
+        <div class="hero-tag-dot"></div>
+        Conversor de PDF para TXT
+      </div>
+      <h1>
+        Converta PDFs em<br>
+        <span class="line2">texto puro agora.</span>
+      </h1>
+      <p class="hero-sub">
+        Extraia o texto de qualquer PDF em segundos. Rápido, seguro e sem complicações — direto no seu navegador.
+      </p>
+
+      <div class="stats">
+        <div class="stat-item">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Privacidade</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-num">&lt; 3s</div>
+          <div class="stat-label">Conversão</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-num">∞</div>
+          <div class="stat-label">Páginas</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UPLOAD SECTION -->
+  <section class="upload-section" id="conversor">
+    <div class="wrapper">
+      <div class="card-main">
+
+        <form method="POST" enctype="multipart/form-data" id="upload-form">
+          {% csrf_token %}
+
+          <!-- Drop Zone -->
+          <div class="drop-zone" id="drop-zone">
+            <input type="file" name="pdf_file" id="pdf-input" accept=".pdf" required />
+            <div class="drop-icon">📄</div>
+            <div class="drop-title">Arraste seu PDF aqui</div>
+            <p class="drop-sub">ou <span>clique para selecionar</span> o arquivo</p>
+          </div>
+
+          <!-- File Preview -->
+          <div class="file-preview" id="file-preview">
+            <div class="file-icon-wrap">📄</div>
+            <div>
+              <div class="file-name" id="file-name">arquivo.pdf</div>
+              <div class="file-size" id="file-size">0 KB</div>
+            </div>
+            <button type="button" class="file-remove" id="file-remove" title="Remover">✕</button>
+          </div>
+
+          <!-- Options -->
+          <div class="options-row">
+            <label class="opt-card selected" id="opt1">
+              <input type="radio" name="modo" value="completo" checked onchange="selectOpt('opt1')" />
+              <div class="opt-radio"></div>
+              <div>
+                <div class="opt-label">Texto completo</div>
+                <div class="opt-desc">Todas as páginas em um arquivo</div>
+              </div>
+            </label>
+            <label class="opt-card" id="opt2">
+              <input type="radio" name="modo" value="limpo" onchange="selectOpt('opt2')" />
+              <div class="opt-radio"></div>
+              <div>
+                <div class="opt-label">Texto limpo</div>
+                <div class="opt-desc">Remove linhas em branco extras</div>
+              </div>
+            </label>
+          </div>
+
+          <!-- Button -->
+          <button type="submit" class="btn-convert" id="btn-convert">
+            <span id="btn-text">⬇ Converter e Baixar TXT</span>
+            <span class="btn-loading" id="btn-loading">
+              <span class="spinner"></span>
+              Convertendo…
+            </span>
+          </button>
+
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="recursos">
+    <div class="wrapper">
+      <div class="section-label">Recursos</div>
+      <h2 class="section-title">Por que usar o PDFtxt?</h2>
+      <div class="features-grid">
+        <div class="feat-card">
+          <span class="feat-icon">🔒</span>
+          <div class="feat-title">100% Seguro</div>
+          <p class="feat-desc">Seus arquivos nunca são armazenados em nossos servidores. O processamento é feito na memória e descartado imediatamente.</p>
+        </div>
+        <div class="feat-card">
+          <span class="feat-icon">⚡</span>
+          <div class="feat-title">Ultra Rápido</div>
+          <p class="feat-desc">Usando PyMuPDF, a extração de texto é feita em milissegundos, mesmo em documentos com centenas de páginas.</p>
+        </div>
+        <div class="feat-card">
+          <span class="feat-icon">📋</span>
+          <div class="feat-title">Alta Fidelidade</div>
+          <p class="feat-desc">Preserva a estrutura do texto original, incluindo parágrafos, colunas e formatação de tabelas simples.</p>
+        </div>
+        <div class="feat-card">
+          <span class="feat-icon">🌐</span>
+          <div class="feat-title">Qualquer PDF</div>
+          <p class="feat-desc">Compatível com PDFs gerados por qualquer software: Word, LibreOffice, LaTeX, Adobe Acrobat e outros.</p>
+        </div>
+        <div class="feat-card">
+          <span class="feat-icon">💻</span>
+          <div class="feat-title">Open Source</div>
+          <p class="feat-desc">Construído com Django e Python. Código aberto, auditável e fácil de hospedar no seu próprio servidor.</p>
+        </div>
+        <div class="feat-card">
+          <span class="feat-icon">📱</span>
+          <div class="feat-title">Responsivo</div>
+          <p class="feat-desc">Funciona perfeitamente em qualquer dispositivo: desktop, tablet ou smartphone sem precisar instalar nada.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="como-funciona">
+    <div class="wrapper">
+      <div class="section-label">Processo</div>
+      <h2 class="section-title">Como funciona?</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Selecione o PDF</div>
+          <p class="step-desc">Arraste e solte o arquivo PDF na área de upload ou clique para abrir o seletor de arquivos do seu dispositivo.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Conversão automática</div>
+          <p class="step-desc">O PyMuPDF percorre cada página do PDF e extrai todo o conteúdo textual preservando a estrutura original.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Baixe o arquivo</div>
+          <p class="step-desc">O arquivo <code style="color:var(--accent);font-size:0.8em">resultado.txt</code> é gerado e enviado automaticamente para download no seu dispositivo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-copy">© 2026 PDFtxt — Feito com Django + Python</div>
+      <div class="footer-links">
+        <a href="#">Privacidade</a>
+        <a href="#">Termos</a>
+        <a href="#">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const dropZone   = document.getElementById('drop-zone');
+    const fileInput  = document.getElementById('pdf-input');
+    const filePreview= document.getElementById('file-preview');
+    const fileName   = document.getElementById('file-name');
+    const fileSize   = document.getElementById('file-size');
+    const fileRemove = document.getElementById('file-remove');
+    const btnConvert = document.getElementById('btn-convert');
+    const btnText    = document.getElementById('btn-text');
+    const btnLoading = document.getElementById('btn-loading');
+    const form       = document.getElementById('upload-form');
+
+    function formatBytes(bytes) {
+      if (bytes < 1024) return bytes + ' B';
+      if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+      return (bytes / 1048576).toFixed(2) + ' MB';
+    }
+
+    function showFile(file) {
+      fileName.textContent = file.name;
+      fileSize.textContent = formatBytes(file.size);
+      filePreview.classList.add('show');
+    }
+
+    function clearFile() {
+      fileInput.value = '';
+      filePreview.classList.remove('show');
+    }
+
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files[0]) showFile(fileInput.files[0]);
+    });
+
+    fileRemove.addEventListener('click', clearFile);
+
+    dropZone.addEventListener('dragover', e => {
+      e.preventDefault();
+      dropZone.classList.add('dragover');
+    });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+    dropZone.addEventListener('drop', e => {
+      e.preventDefault();
+      dropZone.classList.remove('dragover');
+      const file = e.dataTransfer.files[0];
+      if (file && file.type === 'application/pdf') {
+        const dt = new DataTransfer();
+        dt.items.add(file);
+        fileInput.files = dt.files;
+        showFile(file);
+      }
+    });
+
+    form.addEventListener('submit', () => {
+      btnText.style.display = 'none';
+      btnLoading.style.display = 'flex';
+      btnConvert.disabled = true;
+      setTimeout(() => {
+        btnText.style.display = 'block';
+        btnLoading.style.display = 'none';
+        btnConvert.disabled = false;
+      }, 4000);
+    });
+
+    function selectOpt(id) {
+      document.querySelectorAll('.opt-card').forEach(c => c.classList.remove('selected'));
+      document.getElementById(id).classList.add('selected');
+    }
+  </script>
+</body>
+</html>
