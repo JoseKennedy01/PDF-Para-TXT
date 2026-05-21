@@ -2,6 +2,12 @@ import fitz # PyMuPDF
 from django.shortcuts import render
 from django.http import HttpResponse
 
+try:
+    import pytesseract
+    OCR_DISPONIVEL = True
+except ImportError:
+    OCR_DISPONIVEL = False
+
 def upload_pdf(request):
     if request.method == 'POST' and request.FILES.get('pdf_file'):
         pdf_file = request.FILES['pdf_file']
@@ -193,6 +199,9 @@ import pytesseract
 from pdf2image import convert_from_bytes
 
 def ocr_pdf(request):
+    if not OCR_DISPONIVEL:
+        return HttpResponse("OCR não disponível neste servidor.", status=501)
+    ...
     if request.method == 'POST' and request.FILES.get('arquivo'):
         pdf = request.FILES['arquivo']
         
