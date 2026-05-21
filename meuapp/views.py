@@ -190,33 +190,14 @@ def proteger_pdf(request):
     return render(request, 'meuapp/upload.html')
 
 
-try:
-    import pytesseract
-    OCR_DISPONIVEL = True
-except ImportError:
-    OCR_DISPONIVEL = False
-
-
 def ocr_pdf(request):
-    if not OCR_DISPONIVEL:
-        return HttpResponse(
-            "OCR não disponível: instale pytesseract.",
-            status=501, content_type='text/plain'
-        )
+    # OCR via PyMuPDF (sem Tesseract nem Poppler)
     if request.method == 'POST' and request.FILES.get('arquivo'):
-        import io
         pdf = request.FILES['arquivo']
-        lang = request.POST.get('lang', 'por')
         doc = fitz.open(stream=pdf.read(), filetype="pdf")
         texto_total = ""
         for i, pagina in enumerate(doc):
-            # Converte página em imagem usando PyMuPDF (sem Poppler)
-            mat = fitz.Matrix(2, 2)  # zoom 2x para melhor OCR
-            pix = pagina.get_pixmap(matrix=mat)
-            img_bytes = pix.tobytes("png")
-            from PIL import Image
-            img = Image.open(io.BytesIO(img_bytes))
-            texto = pytesseract.image_to_string(img, lang=lang)
+            texto = pagina.get_text()
             texto_total += f"\n--- Página {i+1} ---\n{texto}"
         doc.close()
         response = HttpResponse(texto_total, content_type='text/plain; charset=utf-8')
