@@ -202,22 +202,21 @@ try:
 except ImportError:
     PDF2IMAGE_DISPONIVEL = False
 
-
 def ocr_pdf(request):
-    if not OCR_DISPONIVEL:
-        return HttpResponse("OCR não disponível neste servidor.", status=501)
-    ...
+    if not OCR_DISPONIVEL or not PDF2IMAGE_DISPONIVEL:
+        return HttpResponse(
+            "OCR não disponível neste servidor. Instale pytesseract e pdf2image.",
+            status=501,
+            content_type='text/plain'
+        )
     if request.method == 'POST' and request.FILES.get('arquivo'):
         pdf = request.FILES['arquivo']
-        
-        # Converte páginas do PDF em imagens
+        lang = request.POST.get('lang', 'por')
         imagens = convert_from_bytes(pdf.read(), dpi=300)
-        
         texto_total = ""
         for i, img in enumerate(imagens):
-            texto = pytesseract.image_to_string(img, lang='por')  # português
+            texto = pytesseract.image_to_string(img, lang=lang)
             texto_total += f"\n--- Página {i+1} ---\n{texto}"
-        
         response = HttpResponse(texto_total, content_type='text/plain')
         response['Content-Disposition'] = 'attachment; filename="ocr_resultado.txt"'
         return response
