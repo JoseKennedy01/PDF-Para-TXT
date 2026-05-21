@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV 'C:\Users\Pichau\OneDrive\Desktop\PDF PARA TXT\venv'
+set -gx VIRTUAL_ENV 'C:\Users\Pichau\OneDrive\Desktop\Conversor de PDF\venv'
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/"Scripts $PATH
