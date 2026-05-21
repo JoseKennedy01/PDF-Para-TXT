@@ -203,21 +203,28 @@ except ImportError:
     PDF2IMAGE_DISPONIVEL = False
 
 def ocr_pdf(request):
-    if not OCR_DISPONIVEL or not PDF2IMAGE_DISPONIVEL:
+    if not OCR_DISPONIVEL:
         return HttpResponse(
-            "OCR não disponível neste servidor. Instale pytesseract e pdf2image.",
-            status=501,
-            content_type='text/plain'
+            "OCR não disponível: instale pytesseract.",
+            status=501, content_type='text/plain'
         )
     if request.method == 'POST' and request.FILES.get('arquivo'):
+        import io
         pdf = request.FILES['arquivo']
         lang = request.POST.get('lang', 'por')
-        imagens = convert_from_bytes(pdf.read(), dpi=300)
+        doc = fitz.open(stream=pdf.read(), filetype="pdf")
         texto_total = ""
-        for i, img in enumerate(imagens):
+        for i, pagina in enumerate(doc):
+            # Converte página em imagem usando PyMuPDF (sem Poppler)
+            mat = fitz.Matrix(2, 2)  # zoom 2x para melhor OCR
+            pix = pagina.get_pixmap(matrix=mat)
+            img_bytes = pix.tobytes("png")
+            from PIL import Image
+            img = Image.open(io.BytesIO(img_bytes))
             texto = pytesseract.image_to_string(img, lang=lang)
             texto_total += f"\n--- Página {i+1} ---\n{texto}"
-        response = HttpResponse(texto_total, content_type='text/plain')
+        doc.close()
+        response = HttpResponse(texto_total, content_type='text/plain; charset=utf-8')
         response['Content-Disposition'] = 'attachment; filename="ocr_resultado.txt"'
         return response
     return render(request, 'meuapp/upload.html')
