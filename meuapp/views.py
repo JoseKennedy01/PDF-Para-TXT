@@ -196,12 +196,12 @@ try:
 except ImportError:
     OCR_DISPONIVEL = False
 
-from pdf2image import convert_from_bytes
+try:
+    from pdf2image import convert_from_bytes
+    PDF2IMAGE_DISPONIVEL = True
+except ImportError:
+    PDF2IMAGE_DISPONIVEL = False
 
-def ocr_pdf(request):
-    if not OCR_DISPONIVEL:
-        return HttpResponse("OCR não disponível neste servidor.", status=501)
-from pdf2image import convert_from_bytes
 
 def ocr_pdf(request):
     if not OCR_DISPONIVEL:
