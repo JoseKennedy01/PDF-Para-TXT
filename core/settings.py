@@ -27,7 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ['https://pdf-para-txt-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = [
+    'https://conversor-de-pdf-profissional-production.up.railway.app',
+    'https://conversorr-de-pdf-profissional-production.up.railway.app',
+]
 
 # Application definition
 
