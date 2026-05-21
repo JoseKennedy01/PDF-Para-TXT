@@ -196,11 +196,6 @@ try:
 except ImportError:
     OCR_DISPONIVEL = False
 
-try:
-    from pdf2image import convert_from_bytes
-    PDF2IMAGE_DISPONIVEL = True
-except ImportError:
-    PDF2IMAGE_DISPONIVEL = False
 
 def ocr_pdf(request):
     if not OCR_DISPONIVEL:
