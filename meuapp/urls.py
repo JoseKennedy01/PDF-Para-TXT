@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.upload_pdf, name='home'),
+    path('pdf-para-txt/', views.upload_pdf, name='pdf_txt'),
     path('pdf-para-docx/', views.pdf_para_docx, name='pdf_docx'),
     path('pdf-para-xlsx/', views.pdf_para_xlsx, name='pdf_xlsx'),
     path('imagem-para-pdf/', views.imagem_para_pdf, name='img_pdf'),
