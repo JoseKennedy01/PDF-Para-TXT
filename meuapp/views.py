@@ -4,8 +4,8 @@ from django.http import HttpResponse
 
 
 def upload_pdf(request):
-    if request.method == 'POST' and request.FILES.get('pdf_file'):
-        pdf_file = request.FILES['pdf_file']
+    if request.method == 'POST' and request.FILES.get('arquivo'):
+        pdf_file = request.FILES['arquivo']
 
         # Lê o PDF a partir do arquivo enviado
         doc = fitz.open(stream = pdf_file.read(), filetype = "pdf")
