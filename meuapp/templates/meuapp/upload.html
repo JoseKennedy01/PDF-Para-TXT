@@ -4,13 +4,9 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>PDFly — Ferramentas PDF Profissionais</title>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
-    :root {
-      --bg:#0A0A0F; --surface:#111118; --card:#16161F; --border:rgba(255,255,255,0.07);
-      --border2:rgba(255,255,255,0.14); --accent:#7C6FFF; --a2:#FF6B6B; --a3:#00D9A3;
-      --a4:#FFB547; --a5:#B06EFF; --text:#F0EFF8; --muted:#7A7990; --muted2:#4A4960;
-    }
+    :root{--bg:#0A0A0F;--surface:#111118;--card:#16161F;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.14);--accent:#7C6FFF;--a2:#FF6B6B;--a3:#00D9A3;--a5:#B06EFF;--text:#F0EFF8;--muted:#7A7990}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
     body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
@@ -22,164 +18,195 @@
     @keyframes f1{0%,100%{transform:translate(0,0)}50%{transform:translate(60px,40px)}}
     @keyframes f2{0%,100%{transform:translate(0,0)}50%{transform:translate(-50px,-30px)}}
     @keyframes f3{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,60px)}}
-    .wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 2rem}
+    .wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 1.5rem}
 
     /* NAV */
     nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(20px);background:rgba(10,10,15,0.7);border-bottom:1px solid var(--border)}
-    .nav-in{max-width:1100px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between}
-    .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;letter-spacing:-0.03em;display:flex;align-items:center;gap:8px}
-    .logo-dot{width:8px;height:8px;border-radius:50%;background:var(--a3);animation:pd 2.5s ease-in-out infinite}
-    @keyframes pd{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:0.7}}
+    .nav-in{max-width:1100px;margin:0 auto;padding:0 1.5rem;height:60px;display:flex;align-items:center;justify-content:space-between}
+    .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.25rem;letter-spacing:-0.03em;display:flex;align-items:center;gap:8px}
+    .logo-dot{width:7px;height:7px;border-radius:50%;background:var(--a3);animation:pd 2.5s ease-in-out infinite}
+    @keyframes pd{0%,100%{transform:scale(1)}50%{transform:scale(1.5)}}
     .logo span{color:var(--accent)}
-    .nav-links{display:flex;gap:2rem;list-style:none}
-    .nav-links a{color:var(--muted);text-decoration:none;font-size:0.875rem;font-weight:500;transition:color .2s}
+    .nav-links{display:flex;gap:1.5rem;list-style:none}
+    .nav-links a{color:var(--muted);text-decoration:none;font-size:0.85rem;font-weight:500;transition:color .2s}
     .nav-links a:hover{color:var(--text)}
-    .nav-badge{background:rgba(124,111,255,0.15);color:var(--accent);border:1px solid rgba(124,111,255,0.3);padding:6px 16px;border-radius:100px;font-size:0.8rem;font-weight:500}
+    .nav-badge{background:rgba(124,111,255,0.15);color:var(--accent);border:1px solid rgba(124,111,255,0.3);padding:5px 12px;border-radius:100px;font-size:0.75rem;font-weight:500;white-space:nowrap}
 
     /* HERO */
-    .hero{padding:155px 0 70px;text-align:center}
-    .hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(124,111,255,0.1);border:1px solid rgba(124,111,255,0.25);color:var(--accent);padding:6px 16px;border-radius:100px;font-size:0.78rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;margin-bottom:2rem;animation:fu .6s ease both}
+    .hero{padding:130px 0 60px;text-align:center}
+    .hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(124,111,255,0.1);border:1px solid rgba(124,111,255,0.25);color:var(--accent);padding:5px 14px;border-radius:100px;font-size:0.75rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;margin-bottom:1.75rem}
     .tag-dot{width:6px;height:6px;border-radius:50%;background:var(--a3)}
-    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(2.8rem,6.5vw,5rem);font-weight:800;line-height:1.06;letter-spacing:-0.03em;animation:fu .6s .08s ease both}
+    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,6vw,4.8rem);font-weight:800;line-height:1.08;letter-spacing:-0.03em}
     .hero h1 .g{background:linear-gradient(135deg,var(--accent) 0%,var(--a5) 45%,var(--a2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    .hero-p{font-size:1.08rem;color:var(--muted);max-width:500px;margin:1.5rem auto 0;line-height:1.75;font-weight:300;animation:fu .6s .16s ease both}
-    .stats{display:flex;justify-content:center;gap:3rem;margin-top:3rem;animation:fu .6s .24s ease both}
-    .sn{font-family:'Syne',sans-serif;font-size:1.7rem;font-weight:700;text-align:center}
-    .sl{font-size:0.78rem;color:var(--muted);margin-top:2px;letter-spacing:.03em;text-align:center}
-    .sdiv{width:1px;background:var(--border)}
-    @keyframes fu{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+    .hero-p{font-size:1rem;color:var(--muted);max-width:480px;margin:1.25rem auto 0;line-height:1.75;font-weight:300}
 
-    /* TOOL PICKER */
-    .picker-section{padding:0 0 90px}
-    .picker-card{background:var(--card);border:1px solid var(--border);border-radius:24px;overflow:hidden;position:relative}
+    /* STATS — responsivo em grade no mobile */
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:2.75rem;border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--card)}
+    .stat-item{padding:1.1rem .5rem;text-align:center;border-right:1px solid var(--border)}
+    .stat-item:last-child{border-right:none}
+    .sn{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700;line-height:1}
+    .sl{font-size:0.72rem;color:var(--muted);margin-top:4px;letter-spacing:.03em}
+
+    /* PICKER */
+    .picker-section{padding:0 0 80px}
+    .picker-card{background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;position:relative}
     .picker-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.5}
-
-    /* STEP 1 — choose tool */
-    .step-header{padding:2.5rem 2.5rem 2rem;border-bottom:1px solid var(--border)}
-    .step-label{font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:600;margin-bottom:.5rem}
-    .step-title{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;letter-spacing:-.02em}
-    .step-sub{font-size:.85rem;color:var(--muted);margin-top:.3rem}
+    .step-header{padding:2rem;border-bottom:1px solid var(--border)}
+    .step-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:600;margin-bottom:.4rem}
+    .step-title{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;letter-spacing:-.02em}
+    .step-sub{font-size:.82rem;color:var(--muted);margin-top:.25rem}
 
     /* TOOLS GRID */
-    .tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1px;background:var(--border)}
-    .tool-item{
-      background:var(--card);padding:1.5rem;cursor:pointer;transition:all .2s;
-      display:flex;align-items:flex-start;gap:14px;
-    }
+    .tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+    .tool-item{background:var(--card);padding:1.25rem;cursor:pointer;transition:all .2s;display:flex;align-items:flex-start;gap:12px}
     .tool-item:hover{background:var(--surface)}
-    .tool-item.active{background:rgba(124,111,255,0.08);border-left:3px solid var(--accent)}
-    .tool-ico{
-      width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;
-      font-size:1.3rem;flex-shrink:0;transition:transform .2s;
-    }
+    .tool-item.active{background:rgba(124,111,255,0.08);box-shadow:inset 3px 0 0 var(--accent)}
+    .tool-ico{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;transition:transform .2s}
     .tool-item:hover .tool-ico{transform:scale(1.08)}
-    .tool-name{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;margin-bottom:.2rem;letter-spacing:-.01em}
-    .tool-desc{font-size:.77rem;color:var(--muted);line-height:1.55}
-    .tool-tag{display:inline-block;margin-top:.5rem;padding:2px 8px;border-radius:100px;font-size:.68rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+    .tool-name{font-family:'Syne',sans-serif;font-size:.85rem;font-weight:700;margin-bottom:.2rem;letter-spacing:-.01em}
+    .tool-desc{font-size:.74rem;color:var(--muted);line-height:1.5}
+    .tool-tag{display:inline-block;margin-top:.4rem;padding:2px 7px;border-radius:100px;font-size:.65rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
 
-    /* STEP 2 — upload */
-    .upload-area{padding:2.5rem;border-top:1px solid var(--border);display:none}
+    /* UPLOAD */
+    .upload-area{padding:2rem;border-top:1px solid var(--border);display:none}
     .upload-area.show{display:block}
-    .upload-tool-header{display:flex;align-items:center;gap:14px;margin-bottom:1.75rem}
-    .uth-icon{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
-    .uth-title{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;letter-spacing:-.02em}
-    .uth-desc{font-size:.83rem;color:var(--muted);margin-top:.2rem}
+    .upload-tool-header{display:flex;align-items:center;gap:12px;margin-bottom:1.5rem}
+    .uth-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+    .uth-title{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:-.02em}
+    .uth-desc{font-size:.8rem;color:var(--muted);margin-top:.15rem}
+    .back-btn{background:none;border:none;color:var(--muted);font-size:.8rem;font-weight:500;cursor:pointer;padding:0;margin-bottom:1.1rem;display:flex;align-items:center;gap:5px;transition:color .2s;font-family:'DM Sans',sans-serif}
+    .back-btn:hover{color:var(--text)}
 
     /* DROP */
-    .drop{border:2px dashed var(--border2);border-radius:16px;padding:3rem 2rem;text-align:center;cursor:pointer;transition:all .3s;position:relative;background:rgba(255,255,255,.02)}
-    .drop:hover,.drop.over{border-color:var(--dc,var(--accent));background:rgba(124,111,255,.05)}
+    .drop{border:2px dashed var(--border2);border-radius:14px;padding:2.5rem 1.5rem;text-align:center;cursor:pointer;transition:all .3s;position:relative;background:rgba(255,255,255,.02)}
+    .drop:hover,.drop.over{border-color:var(--accent);background:rgba(124,111,255,.05)}
     .drop input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-    .drop-ico{font-size:2.2rem;margin-bottom:.75rem}
-    .drop-t{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.3rem}
-    .drop-s{font-size:.82rem;color:var(--muted);margin-top:.25rem}
-    .drop-s span{color:var(--dc,var(--accent));font-weight:500}
+    .drop-ico{font-size:2rem;margin-bottom:.6rem}
+    .drop-t{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.25rem}
+    .drop-s{font-size:.78rem;color:var(--muted);margin-top:.2rem}
+    .drop-s span{color:var(--accent);font-weight:500}
 
     /* FILE PREVIEW */
-    .fprev{display:none;align-items:center;gap:12px;margin-top:1rem;background:rgba(124,111,255,.08);border:1px solid rgba(124,111,255,.2);border-radius:12px;padding:.9rem 1.1rem}
+    .fprev{display:none;align-items:center;gap:10px;margin-top:.85rem;background:rgba(124,111,255,.08);border:1px solid rgba(124,111,255,.2);border-radius:10px;padding:.8rem 1rem}
     .fprev.show{display:flex}
-    .fpi{width:40px;height:40px;border-radius:10px;background:rgba(124,111,255,.15);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
-    .fpn{font-size:.85rem;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .fps{font-size:.75rem;color:var(--muted);margin-top:1px}
-    .fprm{margin-left:auto;background:none;border:none;color:var(--muted);cursor:pointer;font-size:1rem;padding:4px;border-radius:6px;transition:all .2s;flex-shrink:0}
+    .fpi{width:36px;height:36px;border-radius:8px;background:rgba(124,111,255,.15);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+    .fpn{font-size:.82rem;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+    .fps{font-size:.72rem;color:var(--muted);margin-top:1px}
+    .fprm{margin-left:auto;background:none;border:none;color:var(--muted);cursor:pointer;font-size:.95rem;padding:4px;border-radius:6px;transition:all .2s;flex-shrink:0}
     .fprm:hover{color:var(--a2);background:rgba(255,107,107,.1)}
-    .multi-list{margin-top:.75rem;display:flex;flex-direction:column;gap:.4rem;max-height:160px;overflow-y:auto}
-    .ml-item{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:.55rem .9rem;font-size:.8rem}
+    .multi-list{margin-top:.6rem;display:flex;flex-direction:column;gap:.35rem;max-height:150px;overflow-y:auto}
+    .ml-item{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:.5rem .85rem;font-size:.78rem}
     .ml-item span{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
-    /* EXTRA INPUTS */
-    .extras{margin-top:1rem;display:flex;flex-direction:column;gap:.85rem}
-    .field label{display:block;font-size:.82rem;font-weight:500;color:var(--muted);margin-bottom:.35rem}
-    .field input,.field select{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border2);border-radius:10px;padding:.65rem 1rem;color:var(--text);font-size:.875rem;font-family:'DM Sans',sans-serif;transition:border-color .2s;outline:none}
-    .field input:focus,.field select:focus{border-color:var(--accent)}
+    /* FIELDS */
+    .extras{margin-top:.85rem;display:flex;flex-direction:column;gap:.75rem}
+    .field label{display:block;font-size:.8rem;font-weight:500;color:var(--muted);margin-bottom:.3rem}
+    .field input,.field select,.field textarea{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border2);border-radius:10px;padding:.6rem .9rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;transition:border-color .2s;outline:none;resize:vertical}
+    .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent)}
     .field select option{background:var(--card)}
+    .field-hint{font-size:.72rem;color:var(--muted);margin-top:.25rem}
+
+    /* MERGE FILE BUILDER */
+    .merge-builder{margin-top:.85rem}
+    .merge-file-row{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:.75rem 1rem;margin-bottom:.4rem;cursor:grab}
+    .merge-file-row:active{cursor:grabbing;opacity:.7}
+    .mfr-drag{color:var(--muted);font-size:1rem;flex-shrink:0}
+    .mfr-name{flex:1;font-size:.82rem;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .mfr-pages{width:100px;background:rgba(255,255,255,.06);border:1px solid var(--border2);border-radius:7px;padding:.3rem .5rem;color:var(--text);font-size:.75rem;font-family:'DM Sans',sans-serif;outline:none}
+    .mfr-pages:focus{border-color:var(--accent)}
+    .mfr-rm{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.9rem;padding:3px 6px;border-radius:5px;transition:all .2s;flex-shrink:0}
+    .mfr-rm:hover{color:var(--a2);background:rgba(255,107,107,.1)}
+    .merge-add-btn{width:100%;margin-top:.4rem;padding:.6rem;background:rgba(255,255,255,.03);border:1px dashed var(--border2);border-radius:10px;color:var(--muted);font-size:.8rem;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;position:relative}
+    .merge-add-btn:hover{border-color:var(--accent);color:var(--accent)}
+    .merge-add-btn input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .merge-hint{font-size:.72rem;color:var(--muted);margin-top:.5rem;line-height:1.5}
 
     /* OPTIONS */
-    .opts{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:.2rem}
-    .opt{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:10px;position:relative}
+    .opts{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.2rem}
+    .opt{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:.75rem .9rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:9px;position:relative}
     .opt input[type=radio]{position:absolute;opacity:0}
     .opt:hover{border-color:var(--border2)}
     .opt.sel{border-color:rgba(124,111,255,.4);background:rgba(124,111,255,.07)}
-    .opt-rb{width:16px;height:16px;border-radius:50%;border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+    .opt-rb{width:15px;height:15px;border-radius:50%;border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
     .opt.sel .opt-rb{border-color:var(--accent);background:var(--accent)}
     .opt.sel .opt-rb::after{content:'';width:5px;height:5px;background:#fff;border-radius:50%}
-    .opt-lbl{font-size:.82rem;font-weight:500}
-    .opt-sub{font-size:.72rem;color:var(--muted);margin-top:1px}
+    .opt-lbl{font-size:.8rem;font-weight:500}
+    .opt-sub{font-size:.7rem;color:var(--muted);margin-top:1px}
 
     /* BTN */
-    .btn-go{width:100%;margin-top:1.5rem;padding:1rem;border:none;border-radius:12px;font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.02em;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;color:#fff;background:linear-gradient(135deg,var(--accent),#9B8FFF)}
-    .btn-go:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(124,111,255,.35)}
+    .btn-go{width:100%;margin-top:1.25rem;padding:.95rem;border:none;border-radius:12px;font-family:'Syne',sans-serif;font-size:.92rem;font-weight:700;letter-spacing:.02em;cursor:pointer;transition:all .25s;color:#fff;background:linear-gradient(135deg,var(--accent),#9B8FFF)}
+    .btn-go:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(124,111,255,.35)}
     .btn-go:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
-    .btn-go::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);opacity:0;transition:opacity .2s}
-    .btn-go:hover::before{opacity:1}
     .bspin{display:none;align-items:center;justify-content:center;gap:8px}
-    .spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+    .spinner{width:15px;height:15px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
     @keyframes spin{to{transform:rotate(360deg)}}
-    .back-btn{background:none;border:none;color:var(--muted);font-size:.83rem;font-weight:500;cursor:pointer;padding:0;margin-bottom:1.25rem;display:flex;align-items:center;gap:6px;transition:color .2s;font-family:'DM Sans',sans-serif}
-    .back-btn:hover{color:var(--text)}
 
     /* FEATURES */
-    .features{padding:70px 0 80px;border-top:1px solid var(--border)}
-    .sec-label{font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:600;margin-bottom:.75rem;text-align:center}
-    .sec-title{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:800;text-align:center;letter-spacing:-.02em;margin-bottom:3rem}
-    .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem}
-    .feat-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:1.75rem;transition:all .25s}
+    .features{padding:60px 0 70px;border-top:1px solid var(--border)}
+    .sec-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:600;margin-bottom:.6rem;text-align:center}
+    .sec-title{font-family:'Syne',sans-serif;font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:800;text-align:center;letter-spacing:-.02em;margin-bottom:2.5rem}
+    .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+    .feat-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.5rem;transition:all .25s}
     .feat-card:hover{border-color:var(--border2);transform:translateY(-3px)}
-    .feat-ico{font-size:1.75rem;margin-bottom:1rem}
-    .feat-t{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.4rem}
-    .feat-d{font-size:.82rem;color:var(--muted);line-height:1.65}
+    .feat-ico{font-size:1.6rem;margin-bottom:.9rem}
+    .feat-t{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;margin-bottom:.35rem}
+    .feat-d{font-size:.8rem;color:var(--muted);line-height:1.65}
 
     /* HOW */
-    .how{padding:70px 0 80px;border-top:1px solid var(--border)}
+    .how{padding:60px 0 70px;border-top:1px solid var(--border)}
     .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;position:relative}
-    .steps::before{content:'';position:absolute;top:26px;left:calc(16.66% + 26px);right:calc(16.66% + 26px);height:1px;background:linear-gradient(90deg,var(--accent),var(--a3));opacity:.35}
+    .steps::before{content:'';position:absolute;top:25px;left:calc(16.66% + 25px);right:calc(16.66% + 25px);height:1px;background:linear-gradient(90deg,var(--accent),var(--a3));opacity:.3}
     .step{text-align:center}
-    .step-n{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--a5));font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 1.1rem;position:relative;z-index:1}
-    .step-t{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.4rem}
-    .step-d{font-size:.82rem;color:var(--muted);line-height:1.65}
+    .step-n{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--a5));font-family:'Syne',sans-serif;font-size:.95rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;position:relative;z-index:1}
+    .step-t{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;margin-bottom:.35rem}
+    .step-d{font-size:.8rem;color:var(--muted);line-height:1.65}
 
     /* FOOTER */
-    footer{border-top:1px solid var(--border);padding:2rem 0}
-    .foot-in{max-width:1100px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
-    .foot-copy{font-size:.8rem;color:var(--muted)}
+    footer{border-top:1px solid var(--border);padding:1.75rem 0}
+    .foot-in{max-width:1100px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+    .foot-copy{font-size:.78rem;color:var(--muted)}
     .foot-links{display:flex;gap:1.5rem}
-    .foot-links a{font-size:.8rem;color:var(--muted);text-decoration:none;transition:color .2s}
+    .foot-links a{font-size:.78rem;color:var(--muted);text-decoration:none;transition:color .2s}
     .foot-links a:hover{color:var(--text)}
 
-    @media(max-width:768px){
-      .feat-grid,.steps{grid-template-columns:1fr}
+    @keyframes fu{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+    /* ── MOBILE ── */
+    @media(max-width:640px){
+      .wrap{padding:0 1rem}
+      .nav-links{display:none}
+      .nav-badge{font-size:.7rem;padding:4px 10px}
+      .hero{padding:100px 0 50px}
+      .hero h1{font-size:clamp(1.9rem,8vw,2.5rem)}
+      .hero-p{font-size:.9rem}
+      /* stats em 2x2 no mobile */
+      .stats{grid-template-columns:repeat(2,1fr)}
+      .stat-item{border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+      .stat-item:nth-child(2){border-right:none}
+      .stat-item:nth-child(3){border-bottom:none}
+      .stat-item:nth-child(4){border-right:none;border-bottom:none}
+      .sn{font-size:1.3rem}
+      /* tools 1 col */
+      .tools-grid{grid-template-columns:1fr}
+      .step-header,.upload-area{padding:1.25rem}
+      /* features 1 col */
+      .feat-grid{grid-template-columns:1fr}
+      .steps{grid-template-columns:1fr;gap:1.5rem}
       .steps::before{display:none}
       .opts{grid-template-columns:1fr}
-      .stats{gap:1.5rem}
-      .nav-links{display:none}
-      .tools-grid{grid-template-columns:1fr}
-      .step-header,.upload-area{padding:1.75rem}
+      .merge-file-row{flex-wrap:wrap}
+      .mfr-pages{width:100%;margin-top:.35rem}
+      .foot-in{flex-direction:column;text-align:center}
+    }
+    @media(min-width:641px) and (max-width:900px){
+      .tools-grid{grid-template-columns:repeat(2,1fr)}
+      .feat-grid{grid-template-columns:repeat(2,1fr)}
     }
   </style>
 </head>
 <body>
 <div class="o1 orb"></div><div class="o2 orb"></div><div class="o3 orb"></div>
 
-<!-- NAV -->
 <nav>
   <div class="nav-in">
     <div class="logo"><div class="logo-dot"></div>PDF<span>ly</span></div>
@@ -192,30 +219,23 @@
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="wrap">
     <div class="hero-tag"><div class="tag-dot"></div>Ferramentas PDF Profissionais</div>
     <h1>Tudo que você precisa<br><span class="g">para trabalhar com PDF.</span></h1>
     <p class="hero-p">Converta, edite, comprima, proteja e muito mais. Rápido, gratuito e sem guardar seus arquivos.</p>
     <div class="stats">
-      <div><div class="sn">9</div><div class="sl">Ferramentas</div></div>
-      <div class="sdiv"></div>
-      <div><div class="sn">100%</div><div class="sl">Gratuito</div></div>
-      <div class="sdiv"></div>
-      <div><div class="sn">&lt;3s</div><div class="sl">Conversão</div></div>
-      <div class="sdiv"></div>
-      <div><div class="sn">0</div><div class="sl">Armazenamento</div></div>
+      <div class="stat-item"><div class="sn">9</div><div class="sl">Ferramentas</div></div>
+      <div class="stat-item"><div class="sn">100%</div><div class="sl">Gratuito</div></div>
+      <div class="stat-item"><div class="sn">&lt;3s</div><div class="sl">Conversão</div></div>
+      <div class="stat-item"><div class="sn">0</div><div class="sl">Armazenamento</div></div>
     </div>
   </div>
 </section>
 
-<!-- PICKER -->
 <section class="picker-section" id="conversor">
   <div class="wrap">
     <div class="picker-card">
-
-      <!-- STEP 1: escolha -->
       <div id="step1">
         <div class="step-header">
           <div class="step-label">Passo 1 de 2</div>
@@ -223,115 +243,58 @@
           <div class="step-sub">Selecione uma das ferramentas abaixo para começar.</div>
         </div>
         <div class="tools-grid">
-
-          <!-- PDF → TXT -->
-          <div class="tool-item" onclick="selectTool('txt')">
+          <div class="tool-item" onclick="selectTool('txt',this)">
             <div class="tool-ico" style="background:rgba(124,111,255,0.14)">📝</div>
-            <div>
-              <div class="tool-name">PDF para TXT</div>
-              <div class="tool-desc">Extrai todo o texto do PDF em arquivo de texto simples.</div>
-              <span class="tool-tag" style="background:rgba(124,111,255,0.15);color:#9B8FFF">Conversão</span>
-            </div>
+            <div><div class="tool-name">PDF para TXT</div><div class="tool-desc">Extrai todo o texto do PDF em arquivo de texto simples.</div><span class="tool-tag" style="background:rgba(124,111,255,0.15);color:#9B8FFF">Conversão</span></div>
           </div>
-
-          <!-- PDF → DOCX -->
-          <div class="tool-item" onclick="selectTool('docx')">
+          <div class="tool-item" onclick="selectTool('docx',this)">
             <div class="tool-ico" style="background:rgba(124,111,255,0.14)">📄</div>
-            <div>
-              <div class="tool-name">PDF para DOCX</div>
-              <div class="tool-desc">Transforma PDF em documento Word editável.</div>
-              <span class="tool-tag" style="background:rgba(124,111,255,0.15);color:#9B8FFF">Conversão</span>
-            </div>
+            <div><div class="tool-name">PDF para DOCX</div><div class="tool-desc">Transforma PDF em documento Word editável.</div><span class="tool-tag" style="background:rgba(124,111,255,0.15);color:#9B8FFF">Conversão</span></div>
           </div>
-
-          <!-- PDF → XLSX -->
-          <div class="tool-item" onclick="selectTool('xlsx')">
+          <div class="tool-item" onclick="selectTool('xlsx',this)">
             <div class="tool-ico" style="background:rgba(124,111,255,0.14)">📊</div>
-            <div>
-              <div class="tool-name">PDF para XLSX</div>
-              <div class="tool-desc">Converte conteúdo do PDF em planilha Excel organizada.</div>
-              <span class="tool-tag" style="background:rgba(124,111,255,0.15);color:#9B8FFF">Conversão</span>
-            </div>
+            <div><div class="tool-name">PDF para XLSX</div><div class="tool-desc">Converte conteúdo do PDF em planilha Excel.</div><span class="tool-tag" style="background:rgba(124,111,255,0.15);color:#9B8FFF">Conversão</span></div>
           </div>
-
-          <!-- IMG → PDF -->
-          <div class="tool-item" onclick="selectTool('img2pdf')">
+          <div class="tool-item" onclick="selectTool('img2pdf',this)">
             <div class="tool-ico" style="background:rgba(124,111,255,0.14)">🖼️</div>
-            <div>
-              <div class="tool-name">Imagem para PDF</div>
-              <div class="tool-desc">Converte JPG, PNG ou WEBP em PDF de alta qualidade.</div>
-              <span class="tool-tag" style="background:rgba(124,111,255,0.15);color:#9B8FFF">Conversão</span>
-            </div>
+            <div><div class="tool-name">Imagem para PDF</div><div class="tool-desc">Converte JPG, PNG ou WEBP em PDF de alta qualidade.</div><span class="tool-tag" style="background:rgba(124,111,255,0.15);color:#9B8FFF">Conversão</span></div>
           </div>
-
-          <!-- MESCLAR -->
-          <div class="tool-item" onclick="selectTool('merge')">
+          <div class="tool-item" onclick="selectTool('merge',this)">
             <div class="tool-ico" style="background:rgba(176,110,255,0.14)">🔗</div>
-            <div>
-              <div class="tool-name">Mesclar PDFs</div>
-              <div class="tool-desc">Une múltiplos PDFs em um único documento.</div>
-              <span class="tool-tag" style="background:rgba(176,110,255,0.15);color:#C49EFF">Edição</span>
-            </div>
+            <div><div class="tool-name">Mesclar PDFs</div><div class="tool-desc">Une PDFs com controle de páginas e ordem personalizada.</div><span class="tool-tag" style="background:rgba(176,110,255,0.15);color:#C49EFF">Edição</span></div>
           </div>
-
-          <!-- DIVIDIR -->
-          <div class="tool-item" onclick="selectTool('split')">
+          <div class="tool-item" onclick="selectTool('split',this)">
             <div class="tool-ico" style="background:rgba(176,110,255,0.14)">✂️</div>
-            <div>
-              <div class="tool-name">Dividir PDF</div>
-              <div class="tool-desc">Separa páginas específicas em arquivos individuais.</div>
-              <span class="tool-tag" style="background:rgba(176,110,255,0.15);color:#C49EFF">Edição</span>
-            </div>
+            <div><div class="tool-name">Dividir PDF</div><div class="tool-desc">Separa páginas específicas em arquivos individuais.</div><span class="tool-tag" style="background:rgba(176,110,255,0.15);color:#C49EFF">Edição</span></div>
           </div>
-
-          <!-- COMPRIMIR -->
-          <div class="tool-item" onclick="selectTool('compress')">
+          <div class="tool-item" onclick="selectTool('compress',this)">
             <div class="tool-ico" style="background:rgba(255,107,107,0.14)">📦</div>
-            <div>
-              <div class="tool-name">Comprimir PDF</div>
-              <div class="tool-desc">Reduz o tamanho do arquivo mantendo a qualidade.</div>
-              <span class="tool-tag" style="background:rgba(255,107,107,0.15);color:#FF9EBC">Otimização</span>
-            </div>
+            <div><div class="tool-name">Comprimir PDF</div><div class="tool-desc">Reduz o tamanho do arquivo mantendo qualidade.</div><span class="tool-tag" style="background:rgba(255,107,107,0.15);color:#FF9EBC">Otimização</span></div>
           </div>
-
-          <!-- PROTEGER -->
-          <div class="tool-item" onclick="selectTool('protect')">
+          <div class="tool-item" onclick="selectTool('protect',this)">
             <div class="tool-ico" style="background:rgba(255,107,107,0.14)">🔒</div>
-            <div>
-              <div class="tool-name">Proteger PDF</div>
-              <div class="tool-desc">Adiciona senha e restrições de edição ao documento.</div>
-              <span class="tool-tag" style="background:rgba(255,107,107,0.15);color:#FF9EBC">Segurança</span>
-            </div>
+            <div><div class="tool-name">Proteger PDF</div><div class="tool-desc">Adiciona senha e restrições de edição ao documento.</div><span class="tool-tag" style="background:rgba(255,107,107,0.15);color:#FF9EBC">Segurança</span></div>
           </div>
-
-          <!-- OCR -->
-          <div class="tool-item" onclick="selectTool('ocr')">
+          <div class="tool-item" onclick="selectTool('ocr',this)">
             <div class="tool-ico" style="background:rgba(0,217,163,0.14)">🔍</div>
-            <div>
-              <div class="tool-name">OCR — Escaneado</div>
-              <div class="tool-desc">Extrai texto de PDFs escaneados ou fotos de documentos.</div>
-              <span class="tool-tag" style="background:rgba(0,217,163,0.15);color:#00D9A3">Avançado</span>
-            </div>
+            <div><div class="tool-name">OCR — Escaneado</div><div class="tool-desc">Extrai texto de PDFs escaneados ou fotos de documentos.</div><span class="tool-tag" style="background:rgba(0,217,163,0.15);color:#00D9A3">Avançado</span></div>
           </div>
+        </div>
+      </div>
 
-        </div><!-- /tools-grid -->
-      </div><!-- /step1 -->
-
-      <!-- STEP 2: upload -->
       <div class="upload-area" id="step2">
         <button class="back-btn" onclick="goBack()">← Voltar às ferramentas</button>
         <div class="upload-tool-header">
           <div class="uth-icon" id="uth-icon"></div>
-          <div>
-            <div class="uth-title" id="uth-title"></div>
-            <div class="uth-desc" id="uth-desc"></div>
-          </div>
+          <div><div class="uth-title" id="uth-title"></div><div class="uth-desc" id="uth-desc"></div></div>
         </div>
 
         <form method="POST" enctype="multipart/form-data" id="tool-form">
           {% csrf_token %}
           <input type="hidden" name="ferramenta" id="ferramenta-input"/>
+          <input type="hidden" name="merge_order" id="merge-order-input"/>
 
+          <!-- DROP normal (hidden for merge) -->
           <div class="drop" id="drop-zone">
             <input type="file" id="file-input" name="arquivo" required/>
             <div class="drop-ico" id="drop-ico"></div>
@@ -342,13 +305,23 @@
 
           <div class="fprev" id="fprev">
             <div class="fpi" id="fpi"></div>
-            <div>
+            <div style="flex:1;min-width:0">
               <div class="fpn" id="fpn">arquivo</div>
               <div class="fps" id="fps">0 KB</div>
             </div>
             <button type="button" class="fprm" onclick="clearFile()">✕</button>
           </div>
           <div class="multi-list" id="multi-list"></div>
+
+          <!-- MERGE BUILDER (shown only for merge) -->
+          <div id="merge-builder-wrap" style="display:none">
+            <div class="merge-builder" id="merge-builder"></div>
+            <label class="merge-add-btn">
+              ＋ Adicionar mais PDFs
+              <input type="file" id="merge-extra-input" accept=".pdf" multiple/>
+            </label>
+            <p class="merge-hint">💡 Arraste as linhas para reordenar · No campo de páginas, use ex: <strong>1-5</strong> ou <strong>1,3,7</strong> (vazio = todas)</p>
+          </div>
 
           <div class="extras" id="extras"></div>
 
@@ -357,19 +330,17 @@
             <span class="bspin" id="bspin"><span class="spinner"></span>Processando…</span>
           </button>
         </form>
-      </div><!-- /step2 -->
-
-    </div><!-- /picker-card -->
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- FEATURES -->
 <section class="features" id="recursos">
   <div class="wrap">
     <div class="sec-label">Por que PDFly?</div>
     <div class="sec-title">Simples, rápido e seguro</div>
     <div class="feat-grid">
-      <div class="feat-card"><div class="feat-ico">🔒</div><div class="feat-t">Privacidade total</div><p class="feat-d">Seus arquivos nunca são armazenados. Todo o processamento ocorre na memória e é descartado após o download.</p></div>
+      <div class="feat-card"><div class="feat-ico">🔒</div><div class="feat-t">Privacidade total</div><p class="feat-d">Seus arquivos nunca são armazenados. Todo processamento ocorre na memória e é descartado após o download.</p></div>
       <div class="feat-card"><div class="feat-ico">⚡</div><div class="feat-t">Ultra rápido</div><p class="feat-d">Motor PyMuPDF processa centenas de páginas em milissegundos. Sem filas, sem espera.</p></div>
       <div class="feat-card"><div class="feat-ico">🆓</div><div class="feat-t">Sempre gratuito</div><p class="feat-d">Todas as 9 ferramentas são gratuitas, sem cadastro e sem limite de uso.</p></div>
       <div class="feat-card"><div class="feat-ico">🌐</div><div class="feat-t">Qualquer dispositivo</div><p class="feat-d">Funciona direto no navegador em desktop, tablet ou smartphone. Nada para instalar.</p></div>
@@ -379,20 +350,18 @@
   </div>
 </section>
 
-<!-- HOW -->
 <section class="how" id="como">
   <div class="wrap">
     <div class="sec-label">Processo</div>
     <div class="sec-title">3 passos, resultado imediato</div>
     <div class="steps">
-      <div class="step"><div class="step-n">1</div><div class="step-t">Escolha a ferramenta</div><p class="step-d">Selecione entre as 9 opções disponíveis conforme o que você precisa fazer com o PDF.</p></div>
+      <div class="step"><div class="step-n">1</div><div class="step-t">Escolha a ferramenta</div><p class="step-d">Selecione entre as 9 opções conforme o que precisa fazer com o PDF.</p></div>
       <div class="step"><div class="step-n">2</div><div class="step-t">Envie o arquivo</div><p class="step-d">Arraste e solte ou clique para selecionar. Preencha as opções adicionais se necessário.</p></div>
-      <div class="step"><div class="step-n">3</div><div class="step-t">Baixe o resultado</div><p class="step-d">O arquivo processado é gerado e enviado automaticamente para download no seu dispositivo.</p></div>
+      <div class="step"><div class="step-n">3</div><div class="step-t">Baixe o resultado</div><p class="step-d">O arquivo processado é gerado e enviado automaticamente para download.</p></div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="foot-in">
     <div class="foot-copy">© 2026 PDFly — Feito com Django + Python</div>
@@ -402,126 +371,63 @@
 
 <script>
 const tools = {
-  txt:{
-    icon:'📝', bg:'rgba(124,111,255,0.15)', btnColor:'linear-gradient(135deg,#7C6FFF,#9B8FFF)',
-    title:'PDF para TXT', desc:'Extraia todo o texto do PDF em um arquivo .txt simples.',
-    accept:'.pdf', multi:false, formats:'PDF',
-    url:'/pdf-para-txt/',
-    extras:`
-      <div class="field"><label>Modo de extração</label>
-        <div class="opts">
-          <label class="opt sel" id="o1" onclick="selOpt('o1','o2')">
-            <input type="radio" name="modo" value="completo" checked/>
-            <div class="opt-rb"></div>
-            <div><div class="opt-lbl">Texto completo</div><div class="opt-sub">Todas as páginas</div></div>
-          </label>
-          <label class="opt" id="o2" onclick="selOpt('o2','o1')">
-            <input type="radio" name="modo" value="limpo"/>
-            <div class="opt-rb"></div>
-            <div><div class="opt-lbl">Texto limpo</div><div class="opt-sub">Sem linhas extras</div></div>
-          </label>
-        </div>
-      </div>`,
-    btn:'⬇ Extrair e baixar TXT'
-  },
-  docx:{
-    icon:'📄', bg:'rgba(124,111,255,0.15)', btnColor:'linear-gradient(135deg,#7C6FFF,#9B8FFF)',
-    title:'PDF para DOCX', desc:'Converta seu PDF em um documento Word (.docx) editável.',
-    accept:'.pdf', multi:false, formats:'PDF', url:'/pdf-para-docx/', extras:'',
-    btn:'⬇ Converter para DOCX'
-  },
-  xlsx:{
-    icon:'📊', bg:'rgba(124,111,255,0.15)', btnColor:'linear-gradient(135deg,#7C6FFF,#9B8FFF)',
-    title:'PDF para XLSX', desc:'Converta o conteúdo do PDF em planilha Excel organizada.',
-    accept:'.pdf', multi:false, formats:'PDF', url:'/pdf-para-xlsx/', extras:'',
-    btn:'⬇ Converter para XLSX'
-  },
-  img2pdf:{
-    icon:'🖼️', bg:'rgba(124,111,255,0.15)', btnColor:'linear-gradient(135deg,#7C6FFF,#9B8FFF)',
-    title:'Imagem para PDF', desc:'Converta imagens JPG, PNG ou WEBP em PDF de alta qualidade.',
-    accept:'.jpg,.jpeg,.png,.webp', multi:false, formats:'JPG · PNG · WEBP',
-    url:'/imagem-para-pdf/', extras:'',
-    btn:'⬇ Converter para PDF'
-  },
-  merge:{
-    icon:'🔗', bg:'rgba(176,110,255,0.15)', btnColor:'linear-gradient(135deg,#B06EFF,#7C6FFF)',
-    title:'Mesclar PDFs', desc:'Una múltiplos arquivos PDF em um único documento. Selecione vários de uma vez.',
-    accept:'.pdf', multi:true, formats:'PDF (múltiplos arquivos)',
-    url:'/mesclar/', extras:'',
-    btn:'⬇ Mesclar e baixar PDF'
-  },
-  split:{
-    icon:'✂️', bg:'rgba(176,110,255,0.15)', btnColor:'linear-gradient(135deg,#B06EFF,#7C6FFF)',
-    title:'Dividir PDF', desc:'Extraia páginas específicas do PDF em um novo arquivo.',
-    accept:'.pdf', multi:false, formats:'PDF',
-    url:'/dividir/',
-    extras:`<div class="field"><label>Páginas a extrair (ex: 1,3,5 ou 2-6)</label><input type="text" name="paginas" placeholder="1,2,3" required/></div>`,
-    btn:'⬇ Dividir e baixar PDF'
-  },
-  compress:{
-    icon:'📦', bg:'rgba(255,107,107,0.15)', btnColor:'linear-gradient(135deg,#FF6B6B,#FFB547)',
-    title:'Comprimir PDF', desc:'Reduza o tamanho do arquivo PDF mantendo a qualidade visual.',
-    accept:'.pdf', multi:false, formats:'PDF', url:'/comprimir/', extras:'',
-    btn:'⬇ Comprimir e baixar PDF'
-  },
-  protect:{
-    icon:'🔒', bg:'rgba(255,107,107,0.15)', btnColor:'linear-gradient(135deg,#FF6B6B,#FFB547)',
-    title:'Proteger PDF com senha', desc:'Adicione senha de abertura e restrições de edição ao documento.',
-    accept:'.pdf', multi:false, formats:'PDF',
-    url:'/proteger/',
-    extras:`<div class="field"><label>Senha de proteção</label><input type="password" name="senha" placeholder="Digite uma senha segura" required minlength="4"/></div>`,
-    btn:'🔒 Proteger e baixar PDF'
-  },
-  ocr:{
-    icon:'🔍', bg:'rgba(0,217,163,0.15)', btnColor:'linear-gradient(135deg,#00D9A3,#7C6FFF)',
-    title:'OCR — PDF Escaneado', desc:'Reconheça e extraia texto de PDFs escaneados usando inteligência artificial.',
-    accept:'.pdf,.jpg,.jpeg,.png', multi:false, formats:'PDF · JPG · PNG',
-    url:'/ocr/',
-    extras:`<div class="field"><label>Idioma do documento</label><select name="lang"><option value="por">Português</option><option value="eng">Inglês</option><option value="spa">Espanhol</option><option value="fra">Francês</option></select></div>`,
-    btn:'🔍 Extrair texto via OCR'
-  }
+  txt:{icon:'📝',bg:'rgba(124,111,255,0.15)',btnColor:'linear-gradient(135deg,#7C6FFF,#9B8FFF)',title:'PDF para TXT',desc:'Extraia todo o texto do PDF em arquivo .txt simples.',accept:'.pdf',multi:false,formats:'PDF',url:'/pdf-para-txt/',btn:'⬇ Extrair e baixar TXT',
+    extras:`<div class="field"><label>Modo de extração</label><div class="opts"><label class="opt sel" id="o1" onclick="selOpt('o1','o2')"><input type="radio" name="modo" value="completo" checked/><div class="opt-rb"></div><div><div class="opt-lbl">Texto completo</div><div class="opt-sub">Todas as páginas</div></div></label><label class="opt" id="o2" onclick="selOpt('o2','o1')"><input type="radio" name="modo" value="limpo"/><div class="opt-rb"></div><div><div class="opt-lbl">Texto limpo</div><div class="opt-sub">Sem linhas extras</div></div></label></div></div>`},
+  docx:{icon:'📄',bg:'rgba(124,111,255,0.15)',btnColor:'linear-gradient(135deg,#7C6FFF,#9B8FFF)',title:'PDF para DOCX',desc:'Converta seu PDF em documento Word (.docx) editável.',accept:'.pdf',multi:false,formats:'PDF',url:'/pdf-para-docx/',btn:'⬇ Converter para DOCX',extras:''},
+  xlsx:{icon:'📊',bg:'rgba(124,111,255,0.15)',btnColor:'linear-gradient(135deg,#7C6FFF,#9B8FFF)',title:'PDF para XLSX',desc:'Converta o conteúdo do PDF em planilha Excel organizada por páginas.',accept:'.pdf',multi:false,formats:'PDF',url:'/pdf-para-xlsx/',btn:'⬇ Converter para XLSX',extras:''},
+  img2pdf:{icon:'🖼️',bg:'rgba(124,111,255,0.15)',btnColor:'linear-gradient(135deg,#7C6FFF,#9B8FFF)',title:'Imagem para PDF',desc:'Converta imagens JPG, PNG ou WEBP em PDF de alta qualidade.',accept:'.jpg,.jpeg,.png,.webp',multi:false,formats:'JPG · PNG · WEBP',url:'/imagem-para-pdf/',btn:'⬇ Converter para PDF',extras:''},
+  merge:{icon:'🔗',bg:'rgba(176,110,255,0.15)',btnColor:'linear-gradient(135deg,#B06EFF,#7C6FFF)',title:'Mesclar PDFs',desc:'Una PDFs escolhendo páginas específicas de cada um e definindo a ordem.',accept:'.pdf',multi:true,formats:'PDF (múltiplos)',url:'/mesclar/',btn:'⬇ Mesclar e baixar PDF',extras:''},
+  split:{icon:'✂️',bg:'rgba(176,110,255,0.15)',btnColor:'linear-gradient(135deg,#B06EFF,#7C6FFF)',title:'Dividir PDF',desc:'Extraia páginas específicas do PDF em um novo arquivo.',accept:'.pdf',multi:false,formats:'PDF',url:'/dividir/',btn:'⬇ Dividir e baixar PDF',
+    extras:`<div class="field"><label>Páginas a extrair (ex: 1,3,5 ou 2-6)</label><input type="text" name="paginas" placeholder="1,2,3" required/><p class="field-hint">Use vírgulas para páginas individuais ou hífen para intervalos.</p></div>`},
+  compress:{icon:'📦',bg:'rgba(255,107,107,0.15)',btnColor:'linear-gradient(135deg,#FF6B6B,#FFB547)',title:'Comprimir PDF',desc:'Reduza o tamanho do PDF mantendo a qualidade visual.',accept:'.pdf',multi:false,formats:'PDF',url:'/comprimir/',btn:'⬇ Comprimir e baixar PDF',extras:''},
+  protect:{icon:'🔒',bg:'rgba(255,107,107,0.15)',btnColor:'linear-gradient(135deg,#FF6B6B,#FFB547)',title:'Proteger PDF com senha',desc:'Adicione senha de abertura e restrições de edição ao documento.',accept:'.pdf',multi:false,formats:'PDF',url:'/proteger/',btn:'🔒 Proteger e baixar PDF',
+    extras:`<div class="field"><label>Senha de proteção</label><input type="password" name="senha" placeholder="Digite uma senha segura" required minlength="4"/></div>`},
+  ocr:{icon:'🔍',bg:'rgba(0,217,163,0.15)',btnColor:'linear-gradient(135deg,#00D9A3,#7C6FFF)',title:'OCR — PDF Escaneado',desc:'Extraia texto de PDFs escaneados usando reconhecimento óptico.',accept:'.pdf,.jpg,.jpeg,.png',multi:false,formats:'PDF · JPG · PNG',url:'/ocr/',btn:'🔍 Extrair texto via OCR',
+    extras:`<div class="field"><label>Idioma do documento</label><select name="lang"><option value="por">Português</option><option value="eng">Inglês</option><option value="spa">Espanhol</option><option value="fra">Francês</option></select></div>`}
 };
 
 let current = null;
+let mergeFiles = []; // {file, name, pages}
 
-function selectTool(key) {
+function selectTool(key, el) {
   current = key;
   const t = tools[key];
-
-  // highlight
   document.querySelectorAll('.tool-item').forEach(i => i.classList.remove('active'));
-  event.currentTarget.classList.add('active');
+  el.classList.add('active');
 
-  // populate step 2
   document.getElementById('uth-icon').style.background = t.bg;
   document.getElementById('uth-icon').textContent = t.icon;
   document.getElementById('uth-title').textContent = t.title;
   document.getElementById('uth-desc').textContent = t.desc;
   document.getElementById('ferramenta-input').value = key;
   document.getElementById('drop-ico').textContent = t.icon;
-  document.getElementById('drop-t').textContent = t.multi ? 'Selecione os arquivos' : 'Arraste o arquivo aqui';
   document.getElementById('drop-formats').textContent = t.formats;
   document.getElementById('extras').innerHTML = t.extras;
   document.getElementById('btn-txt').textContent = t.btn;
   document.getElementById('btn-go').style.background = t.btnColor;
   document.getElementById('tool-form').action = t.url;
 
-  const fi = document.getElementById('file-input');
-  fi.accept = t.accept;
-  if (t.multi) {
-    fi.setAttribute('multiple','');
-    fi.name = 'arquivos';
+  const isMerge = key === 'merge';
+  document.getElementById('drop-zone').style.display = isMerge ? 'none' : '';
+  document.getElementById('fprev').classList.remove('show');
+  document.getElementById('multi-list').innerHTML = '';
+  document.getElementById('merge-builder-wrap').style.display = isMerge ? 'block' : 'none';
+
+  if (isMerge) {
+    mergeFiles = [];
+    renderMergeBuilder();
+    setupMergeInput();
   } else {
+    const fi = document.getElementById('file-input');
+    fi.accept = t.accept;
     fi.removeAttribute('multiple');
     fi.name = 'arquivo';
+    fi.value = '';
+    setupDrop();
   }
-  fi.value = '';
-  clearFile();
 
-  // scroll to card and show step2
   document.getElementById('step2').classList.add('show');
   document.getElementById('step2').scrollIntoView({behavior:'smooth',block:'nearest'});
-  setupDrop(t.multi);
 }
 
 function goBack() {
@@ -530,80 +436,114 @@ function goBack() {
   document.getElementById('step1').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-function setupDrop(multi) {
+// ── MERGE BUILDER ──────────────────────────────────
+function renderMergeBuilder() {
+  const builder = document.getElementById('merge-builder');
+  if (!mergeFiles.length) {
+    builder.innerHTML = `<div style="text-align:center;padding:2rem;color:var(--muted);font-size:.82rem;border:2px dashed var(--border2);border-radius:12px">Adicione PDFs abaixo para começar</div>`;
+    return;
+  }
+  builder.innerHTML = mergeFiles.map((f,i) => `
+    <div class="merge-file-row" draggable="true" data-idx="${i}"
+         ondragstart="dragStart(event,${i})" ondragover="dragOver(event)" ondrop="dropRow(event,${i})">
+      <span class="mfr-drag">⠿</span>
+      <span class="mfr-name">📄 ${f.name}</span>
+      <input class="mfr-pages" type="text" placeholder="Todas" value="${f.pages}"
+             oninput="mergeFiles[${i}].pages=this.value" title="Ex: 1-5 ou 1,3,7"/>
+      <button type="button" class="mfr-rm" onclick="removeMergeFile(${i})">✕</button>
+    </div>`).join('');
+}
+
+function setupMergeInput() {
+  const inp = document.getElementById('merge-extra-input');
+  const newInp = inp.cloneNode(true);
+  inp.parentNode.replaceChild(newInp, inp);
+  newInp.addEventListener('change', () => {
+    Array.from(newInp.files).forEach(f => mergeFiles.push({file:f, name:f.name, pages:''}));
+    renderMergeBuilder();
+    newInp.value = '';
+  });
+}
+
+function removeMergeFile(i) {
+  mergeFiles.splice(i,1);
+  renderMergeBuilder();
+}
+
+let dragIdx = null;
+function dragStart(e,i){ dragIdx=i; e.dataTransfer.effectAllowed='move'; }
+function dragOver(e){ e.preventDefault(); e.dataTransfer.dropEffect='move'; }
+function dropRow(e,i){
+  e.preventDefault();
+  if(dragIdx===null||dragIdx===i) return;
+  const moved = mergeFiles.splice(dragIdx,1)[0];
+  mergeFiles.splice(i,0,moved);
+  dragIdx=null;
+  renderMergeBuilder();
+}
+
+// ── NORMAL DROP ──────────────────────────────────────
+function setupDrop() {
   const dz = document.getElementById('drop-zone');
   const fi = document.getElementById('file-input');
-  // remove old listeners by cloning
   const newFi = fi.cloneNode(true);
   fi.parentNode.replaceChild(newFi, fi);
-
-  newFi.addEventListener('change', () => {
-    if (multi) showMulti(newFi.files);
-    else if (newFi.files[0]) showSingle(newFi.files[0]);
-  });
-
+  newFi.addEventListener('change', () => { if(newFi.files[0]) showSingle(newFi.files[0]); });
   dz.ondragover = e => { e.preventDefault(); dz.classList.add('over'); };
   dz.ondragleave = () => dz.classList.remove('over');
   dz.ondrop = e => {
     e.preventDefault(); dz.classList.remove('over');
-    const files = e.dataTransfer.files;
-    if (!files.length) return;
-    const dt = new DataTransfer();
-    Array.from(files).forEach(f => dt.items.add(f));
-    newFi.files = dt.files;
-    if (multi) showMulti(files);
-    else showSingle(files[0]);
-  };
-
-  document.getElementById('tool-form').onsubmit = () => {
-    const btn = document.getElementById('btn-go');
-    document.getElementById('btn-txt').style.display = 'none';
-    document.getElementById('bspin').style.display = 'flex';
-    btn.disabled = true;
-    setTimeout(() => {
-      document.getElementById('btn-txt').style.display = 'block';
-      document.getElementById('bspin').style.display = 'none';
-      btn.disabled = false;
-    }, 6000);
+    const f = e.dataTransfer.files[0]; if(!f) return;
+    const dt = new DataTransfer(); dt.items.add(f); newFi.files = dt.files;
+    showSingle(f);
   };
 }
 
 function showSingle(file) {
-  const t = tools[current];
-  document.getElementById('fpi').textContent = t.icon;
+  document.getElementById('fpi').textContent = tools[current].icon;
   document.getElementById('fpn').textContent = file.name;
   document.getElementById('fps').textContent = fmtBytes(file.size);
   document.getElementById('fprev').classList.add('show');
-  document.getElementById('multi-list').innerHTML = '';
-}
-
-function showMulti(files) {
-  document.getElementById('fprev').classList.remove('show');
-  const ml = document.getElementById('multi-list');
-  ml.innerHTML = Array.from(files).map(f =>
-    `<div class="ml-item">📄<span>${f.name}</span><small style="color:var(--muted);flex-shrink:0">${fmtBytes(f.size)}</small></div>`
-  ).join('');
 }
 
 function clearFile() {
   document.getElementById('fprev').classList.remove('show');
-  document.getElementById('multi-list').innerHTML = '';
   const fi = document.getElementById('file-input');
-  if (fi) fi.value = '';
+  if(fi) fi.value = '';
 }
 
 function fmtBytes(b) {
-  if (b < 1024) return b + ' B';
-  if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
-  return (b/1048576).toFixed(2) + ' MB';
+  if(b<1024) return b+' B';
+  if(b<1048576) return (b/1024).toFixed(1)+' KB';
+  return (b/1048576).toFixed(2)+' MB';
 }
 
-function selOpt(a, b) {
-  const ea = document.getElementById(a);
-  const eb = document.getElementById(b);
-  if (ea) ea.classList.add('sel');
-  if (eb) eb.classList.remove('sel');
+function selOpt(a,b) {
+  const ea=document.getElementById(a), eb=document.getElementById(b);
+  if(ea) ea.classList.add('sel');
+  if(eb) eb.classList.remove('sel');
 }
+
+// ── FORM SUBMIT ──────────────────────────────────────
+document.getElementById('tool-form').addEventListener('submit', function(e) {
+  if(current === 'merge') {
+    if(!mergeFiles.length){ e.preventDefault(); alert('Adicione pelo menos 2 PDFs para mesclar.'); return; }
+    // Build hidden inputs with file data and pages
+    const order = mergeFiles.map((f,i) => ({idx:i, pages:f.pages}));
+    document.getElementById('merge-order-input').value = JSON.stringify(order);
+    // Attach files to a hidden multi input
+    const dt = new DataTransfer();
+    mergeFiles.forEach(f => dt.items.add(f.file));
+    let fi = document.getElementById('merge-hidden-files');
+    if(!fi){ fi = document.createElement('input'); fi.type='file'; fi.name='arquivos'; fi.multiple=true; fi.style.display='none'; fi.id='merge-hidden-files'; this.appendChild(fi); }
+    fi.files = dt.files;
+  }
+  const btn = document.getElementById('btn-go');
+  document.getElementById('btn-txt').style.display='none';
+  document.getElementById('bspin').style.display='flex';
+  btn.disabled=true;
+  setTimeout(()=>{ document.getElementById('btn-txt').style.display='block'; document.getElementById('bspin').style.display='none'; btn.disabled=false; }, 7000);
+});
 </script>
 </body>
 </html>
