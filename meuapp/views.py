@@ -155,14 +155,20 @@ def pdf_para_xlsx(request):
             # Ajusta largura das colunas automaticamente
             for col in ws.columns:
                 max_len = 0
-                col_letter = col[0].column_letter
+                col_letter = None
                 for cell in col:
                     try:
+                        # MergedCell não tem column_letter, pula
+                        if not hasattr(cell,'column_letter'):
+                            continue
+                        if col_letter is None:
+                            col_letter = cell.column_letter
                         if cell.value:
                             max_len = max(max_len, len(str(cell.value)))
                     except Exception:
                         pass
-                ws.column_dimensions[col_letter].width = min(max_len + 4, 60)
+                    if col_letter:
+                        ws.column_dimensions[col_letter].width = min(max_len + 4, 60)
 
         doc_fitz.close()
         buffer = BytesIO()
