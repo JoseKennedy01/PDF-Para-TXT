@@ -101,74 +101,66 @@ def pdf_para_docx(request):
 
 
 def pdf_para_xlsx(request):
-    """PDF → XLSX (Excel) — extrai tabelas e texto com formatação"""
     if request.method == 'POST' and request.FILES.get('arquivo'):
         pdf = request.FILES['arquivo']
         doc_fitz = fitz.open(stream=pdf.read(), filetype='pdf')
 
         wb = Workbook()
-        # Remove aba padrão
         wb.remove(wb.active)
 
         for i, pagina in enumerate(doc_fitz):
-            ws = wb.create_sheet(title=f'Pág {i + 1}')
+            ws = wb.create_sheet(title=f'Pag {i + 1}')
 
-            # ── Cabeçalho da aba ──
-            ws.merge_cells('A1:D1')
-            cell_header = ws['A1']
-            cell_header.value = f'Página {i + 1}'
-            cell_header.font = Font(bold=True, size=13, color='FFFFFF')
-            cell_header.fill = PatternFill('solid', fgColor='5B5FCC')
-            cell_header.alignment = Alignment(horizontal='center', vertical='center')
-            ws.row_dimensions[1].height = 22
+            # Cabeçalho
+            ws['A1'] = f'Página {i + 1}'
+            ws['A1'].font = Font(bold=True, size=12, color='FFFFFF')
+            ws['A1'].fill = PatternFill('solid', fgColor='7C6FFF')
+            ws['A1'].alignment = Alignment(horizontal='center')
+            ws.row_dimensions[1].height = 20
 
             linha_ws = 2
 
-            # ── Tenta extrair tabelas primeiro ──
-            tabelas = pagina.find_tables()
-            if tabelas.tables:
+            # Tenta extrair tabelas
+            try:
+                tabelas = pagina.find_tables()
+                tem_tabela = len(tabelas.tables) > 0
+            except Exception:
+                tem_tabela = False
+
+            if tem_tabela:
                 for tabela in tabelas.tables:
                     dados = tabela.extract()
-                    # Cabeçalho da tabela (primeira linha)
-                    if dados:
-                        for col_idx, celula in enumerate(dados[0], start=1):
-                            c = ws.cell(row=linha_ws, column=col_idx, value=str(celula or ''))
-                            c.font = Font(bold=True, color='FFFFFF')
-                            c.fill = PatternFill('solid', fgColor='7C6FFF')
-                            c.alignment = Alignment(wrap_text=True)
+                    for row_idx, row in enumerate(dados):
+                        for col_idx, celula in enumerate(row, start=1):
+                            c = ws.cell(row=linha_ws, column=col_idx, value=str(celula or '').strip())
+                            if row_idx == 0:
+                                c.font = Font(bold=True)
                         linha_ws += 1
-                        # Demais linhas da tabela
-                        for row in dados[1:]:
-                            for col_idx, celula in enumerate(row, start=1):
-                                c = ws.cell(row=linha_ws, column=col_idx, value=str(celula or ''))
-                                c.alignment = Alignment(wrap_text=True)
-                            linha_ws += 1
-                        linha_ws += 1  # espaço entre tabelas
+                    linha_ws += 1
             else:
-                # ── Sem tabelas: coloca o texto linha a linha ──
+                # Texto linha por linha
                 texto = pagina.get_text()
                 for txt_linha in texto.splitlines():
-                    if txt_linha.strip():
-                        ws.cell(row=linha_ws, column=1, value=txt_linha)
+                    txt = txt_linha.strip()
+                    if txt:
+                        ws.cell(row=linha_ws, column=1, value=txt)
                         linha_ws += 1
 
-            # Ajusta largura das colunas automaticamente
+            # Ajusta largura sem quebrar em MergedCell
             for col in ws.columns:
                 max_len = 0
                 col_letter = None
                 for cell in col:
-                    try:
-                        # MergedCell não tem column_letter, pula
-                        if not hasattr(cell,'column_letter'):
-                            continue
+                    if hasattr(cell, 'column_letter'):
                         if col_letter is None:
                             col_letter = cell.column_letter
-                        if cell.value:
-                            max_len = max(max_len, len(str(cell.value)))
-                    except Exception:
-                        pass
-                    if col_letter:
-                        ws.column_dimensions[col_letter].width = min(max_len + 4, 60)
+                        try:
+                            if cell.value:
+                                max_len = max(max_len, len(str(cell.value)))
+                        except Exception:
+                            pass
+                if col_letter:
+                    ws.column_dimensions[col_letter].width = min(max_len + 4, 80)
 
         doc_fitz.close()
         buffer = BytesIO()
